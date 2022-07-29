@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
 import 'package:provider/provider.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       body: Center(
         child: SwitchListTile(
+          activeColor: themeState.getDarkTheme ? Colors.blue[900] : Colors.blue,
           title: const Text("Theme"),
           secondary: Icon(themeState.getDarkTheme
               ? Icons.dark_mode_outlined

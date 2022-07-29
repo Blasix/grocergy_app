@@ -1,6 +1,7 @@
 # grocery
 
 A new Flutter project.
+made with help of: https://www.youtube.com/watch?v=5YniYoLq3EI
 
 ## Getting Started
 
