@@ -19,7 +19,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
   final List _pages = [
     const HomeScreen(),
-    const CategoriesScreen(),
+    CategoriesScreen(),
     const CartScreen(),
     const UserScreen(),
   ];
