@@ -6,7 +6,7 @@ class Styles {
       scaffoldBackgroundColor:
           //0A1931  // white yellow 0xFFFCF8EC
           isDarkTheme ? Colors.blueGrey[900] : Colors.blueGrey[50],
-      primaryColor: Colors.blue,
+      primaryColor: isDarkTheme ? Colors.blue[900] : Colors.blue,
       colorScheme: ThemeData().colorScheme.copyWith(
             secondary: isDarkTheme ? Colors.blueGrey[900] : Colors.blueGrey[50],
             brightness: isDarkTheme ? Brightness.dark : Brightness.light,

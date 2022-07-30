@@ -3,6 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/dark_theme_provider.dart';
+import '../services/utils.dart';
 import '../widgets/text_widget.dart';
 
 class UserScreen extends StatefulWidget {
@@ -137,6 +138,7 @@ class _UserScreenState extends State<UserScreen> {
         context: context,
         builder: (context) {
           final themeState = Provider.of<DarkThemeProvider>(context);
+          final utils = Utils(context);
           return AlertDialog(
             backgroundColor: themeState.getDarkTheme
                 ? Theme.of(context).cardColor
@@ -156,11 +158,7 @@ class _UserScreenState extends State<UserScreen> {
                 onPressed: () {},
                 child: Text(
                   'Update',
-                  style: TextStyle(
-                    color: themeState.getDarkTheme
-                        ? Colors.blue[900]
-                        : Colors.blue,
-                  ),
+                  style: TextStyle(color: utils.blueColor),
                 ),
               ),
             ],
@@ -173,6 +171,7 @@ class _UserScreenState extends State<UserScreen> {
         context: context,
         builder: (context) {
           final themeState = Provider.of<DarkThemeProvider>(context);
+          final utils = Utils(context);
           return AlertDialog(
             backgroundColor: themeState.getDarkTheme
                 ? Theme.of(context).cardColor
@@ -196,21 +195,14 @@ class _UserScreenState extends State<UserScreen> {
                 },
                 child: Text(
                   'Cancel',
-                  style: TextStyle(
-                    color: themeState.getDarkTheme
-                        ? Colors.blue[900]
-                        : Colors.blue,
-                  ),
+                  style: TextStyle(color: utils.blueColor),
                 ),
               ),
               TextButton(
                 onPressed: () {},
                 child: Text(
                   'Sing out',
-                  style: TextStyle(
-                    color:
-                        themeState.getDarkTheme ? Colors.red[900] : Colors.red,
-                  ),
+                  style: TextStyle(color: utils.redColor),
                 ),
               ),
             ],

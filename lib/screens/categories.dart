@@ -58,20 +58,21 @@ class CategoriesScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GridView.count(
-            crossAxisCount: 2,
-            childAspectRatio: 250 / 250,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            children: List.generate(6, (index) {
-              return CategoriesWidget(
-                catText: catInfo[index]['catText'],
-                color: gridColors[index],
-                imgPath: catInfo[index]['imgPath'],
-              );
-            }),
-          )),
+        padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+        child: GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: 240 / 250,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          children: List.generate(6, (index) {
+            return CategoriesWidget(
+              catText: catInfo[index]['catText'],
+              color: gridColors[index],
+              imgPath: catInfo[index]['imgPath'],
+            );
+          }),
+        ),
+      ),
     );
   }
 }
