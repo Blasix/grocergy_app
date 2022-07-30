@@ -1,6 +1,9 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery/inner_screens/feeds.dart';
+import 'package:grocery/inner_screens/on_sale.dart';
+import 'package:grocery/services/global_methods.dart';
 import 'package:grocery/widgets/feed_items.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
@@ -16,10 +19,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> _offerImages = [
-    'assets/images/offres/Offer1.jpg',
-    'assets/images/offres/Offer2.jpg',
-    'assets/images/offres/Offer3.jpg',
-    'assets/images/offres/Offer4.jpg'
+    'assets/images/offers/Offer1.jpg',
+    'assets/images/offers/Offer2.jpg',
+    'assets/images/offers/Offer3.jpg',
+    'assets/images/offers/Offer4.jpg'
   ];
 
   @override
@@ -48,7 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
             //   height: 8,
             // ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                GlobalMethods.navigateTo(
+                    ctx: context, routeName: OnSaleScreen.routeName);
+              },
               child: Text(
                 'View all',
                 style: TextStyle(
@@ -84,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Flexible(
                   child: SizedBox(
-                    height: utils.screenSize.height * 0.22,
+                    height: utils.screenSize.height * 0.238,
                     child: ListView.builder(
                       itemCount: 10,
                       scrollDirection: Axis.horizontal,
@@ -104,14 +110,17 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   TextWidget(
-                    text: 'Our products',
+                    text: 'Our products (per kg)',
                     color: utils.color,
                     textSize: 20,
                     isTitle: true,
                   ),
                   const Spacer(),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      GlobalMethods.navigateTo(
+                          ctx: context, routeName: FeedsScreen.routeName);
+                    },
                     child: TextWidget(
                       text: 'Browse all',
                       color: utils.blueColor,
@@ -129,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.zero,
               // crossAxisSpacing: 10,
               childAspectRatio:
-                  utils.screenSize.width / (utils.screenSize.height * 0.6),
+                  utils.screenSize.width / (utils.screenSize.height * 0.57),
               children: List.generate(4, (index) {
                 return const FeedsWidget();
               }),

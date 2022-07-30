@@ -19,7 +19,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
   Widget build(BuildContext context) {
     final utils = Utils(context);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+      padding: const EdgeInsets.all(8),
       child: Material(
         color: utils.getTheme
             ? Theme.of(context).cardColor.withOpacity(0.9)
@@ -46,7 +46,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                     Column(
                       children: [
                         TextWidget(
-                          text: 'Weight',
+                          text: '1KG',
                           color: utils.color,
                           textSize: 22,
                           isTitle: true,
@@ -71,7 +71,11 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                     )
                   ],
                 ),
-                const PriceWidget(),
+                const PriceWidget(
+                    isOnSale: true,
+                    price: 3.99,
+                    salePrice: 2.99,
+                    textPrice: '1'),
                 const SizedBox(
                   height: 5,
                 ),

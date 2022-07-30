@@ -39,6 +39,7 @@ dependencies:
   flutter_iconly: ^1.0.2
   card_swiper: ^2.0.4
   fancy_shimmer_image: ^2.0.2
+  flutter_number_picker: ^1.0.4
 
 dev_dependencies:
   flutter_test:
@@ -67,7 +68,7 @@ flutter:
     - assets/images/
     - assets/images/cat/
     - assets/images/landing/
-    - assets/images/offres/
+    - assets/images/offers/
     # - assets/images/warning-sign.png
     # - assets/images/wishlist.png
 

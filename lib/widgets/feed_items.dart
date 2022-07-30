@@ -1,6 +1,8 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_number_picker/flutter_number_picker.dart';
+import 'package:grocery/constants/theme_data.dart';
+import 'package:grocery/widgets/price_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
 import '../services/utils.dart';
@@ -14,6 +16,7 @@ class FeedsWidget extends StatefulWidget {
 }
 
 class _FeedsWidgetState extends State<FeedsWidget> {
+  String _currentValue = '1';
   final _quantityTextController = TextEditingController();
   @override
   void initState() {
@@ -61,42 +64,41 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                   const HearthBTN()
                 ],
               ),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextWidget(
-                      text: 'Price\$', color: utils.greenColor, textSize: 20),
+                  PriceWidget(
+                    isOnSale: false,
+                    price: 3.99,
+                    salePrice: 2.99,
+                    textPrice: _currentValue,
+                  ),
                   const Spacer(),
-                  Flexible(
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        Flexible(
-                            child: TextFormField(
-                          controller: _quantityTextController,
-                          key: const ValueKey('10'),
-                          style: TextStyle(color: utils.color, fontSize: 18),
-                          keyboardType: TextInputType.number,
-                          maxLines: 1,
-                          enabled: true,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp('[0-9.]'))
-                          ],
+                  CustomNumberPicker(
+                    customAddButton: const Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Icon(
+                          Icons.add,
+                          size: 15,
                         )),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        FittedBox(
-                          child: TextWidget(
-                            text: 'KG',
-                            color: utils.color,
-                            textSize: 16,
-                            isTitle: true,
-                          ),
-                        ),
-                      ],
-                    ),
+                    customMinusButton: const Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Icon(
+                          Icons.remove,
+                          size: 15,
+                        )),
+                    initialValue: 1,
+                    maxValue: 99,
+                    minValue: 1,
+                    step: 1,
+                    onValue: (value) {
+                      setState(() {
+                        _currentValue = value.toString();
+                      });
+                    },
                   )
                 ],
               ),
