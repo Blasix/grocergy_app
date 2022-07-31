@@ -50,7 +50,8 @@ class OnSaleScreen extends StatelessWidget {
               crossAxisCount: 2,
               padding: EdgeInsets.zero,
               // crossAxisSpacing: 10,
-              childAspectRatio: 40 / 34,
+              childAspectRatio:
+                  utils.screenSize.width / (utils.screenSize.height * 0.48),
               children: List.generate(16, (index) {
                 return const OnSaleWidget();
               }),

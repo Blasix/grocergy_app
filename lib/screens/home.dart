@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Flexible(
                   child: SizedBox(
-                    height: 182,
+                    height: utils.screenSize.height * 0.238,
                     child: ListView.builder(
                       itemCount: 10,
                       scrollDirection: Axis.horizontal,
@@ -137,7 +137,8 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisCount: 2,
               padding: EdgeInsets.zero,
               // crossAxisSpacing: 10,
-              childAspectRatio: 20 / 20,
+              childAspectRatio:
+                  utils.screenSize.width / (utils.screenSize.height * 0.54),
               children: List.generate(4, (index) {
                 return const FeedsWidget();
               }),
