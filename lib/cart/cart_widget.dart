@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:grocery/widgets/heart_btn.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
+import '../inner_screens/product_details.dart';
+import '../services/global_methods.dart';
 import '../services/utils.dart';
 
 class CartWidget extends StatefulWidget {
@@ -29,7 +31,10 @@ class _CartWidgetState extends State<CartWidget> {
     }
     final utils = Utils(context);
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        GlobalMethods.navigateTo(
+            ctx: context, routeName: ProductDetails.routeName);
+      },
       child: Row(
         children: [
           Expanded(

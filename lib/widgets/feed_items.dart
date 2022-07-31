@@ -1,8 +1,10 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery/services/global_methods.dart';
 import 'package:grocery/widgets/price_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
+import '../inner_screens/product_details.dart';
 import '../services/utils.dart';
 import 'heart_btn.dart';
 
@@ -50,7 +52,10 @@ class _FeedsWidgetState extends State<FeedsWidget> {
             : Colors.white,
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: () {},
+          onTap: () {
+            GlobalMethods.navigateTo(
+                ctx: context, routeName: ProductDetails.routeName);
+          },
           child: Padding(
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
             child: Column(children: [

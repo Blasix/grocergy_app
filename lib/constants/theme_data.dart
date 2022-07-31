@@ -8,7 +8,6 @@ class Styles {
           isDarkTheme ? Colors.blueGrey[900] : Colors.blueGrey[50],
       primaryColor: isDarkTheme ? Colors.blue[900] : Colors.blue,
       colorScheme: ThemeData().colorScheme.copyWith(
-            secondary: isDarkTheme ? Colors.blueGrey[900] : Colors.blueGrey[50],
             brightness: isDarkTheme ? Brightness.dark : Brightness.light,
           ),
       cardColor: isDarkTheme
