@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/widgets/orders_widget.dart';
 import 'package:provider/provider.dart';
+import '../inner_screens/empty.dart';
 import '../provider/dark_theme_provider.dart';
 import '../services/utils.dart';
 import '../widgets/back_widget.dart';
@@ -13,6 +14,7 @@ class OrdersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isEmpty = false;
     final utils = Utils(context);
     return Scaffold(
       appBar: AppBar(
@@ -26,19 +28,24 @@ class OrdersScreen extends StatelessWidget {
           isTitle: true,
         ),
       ),
-      body: ListView.separated(
-          itemBuilder: (ctx, index) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-              child: OrderWidget(),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              thickness: 2,
-            );
-          },
-          itemCount: 10),
+      body: isEmpty
+          ? const EmptyScreen(
+              emptyText: 'You dont have any orders',
+              image: 'assets/images/basket.png',
+            )
+          : ListView.separated(
+              itemBuilder: (ctx, index) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+                  child: OrderWidget(),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(
+                  thickness: 2,
+                );
+              },
+              itemCount: 10),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/widgets/viewed_widget.dart';
+import '../inner_screens/empty.dart';
 import '../services/utils.dart';
 import '../widgets/back_widget.dart';
 import '../widgets/text_widget.dart';
@@ -10,6 +11,7 @@ class ViewedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isEmpty = false;
     final utils = Utils(context);
     return Scaffold(
       appBar: AppBar(
@@ -23,19 +25,24 @@ class ViewedScreen extends StatelessWidget {
           isTitle: true,
         ),
       ),
-      body: ListView.separated(
-          itemBuilder: (ctx, index) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-              child: ViewedWidget(),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              thickness: 2,
-            );
-          },
-          itemCount: 10),
+      body: isEmpty
+          ? const EmptyScreen(
+              emptyText: 'You have not viewed any items yet',
+              image: 'assets/images/history.png',
+            )
+          : ListView.separated(
+              itemBuilder: (ctx, index) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+                  child: ViewedWidget(),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(
+                  thickness: 2,
+                );
+              },
+              itemCount: 10),
     );
   }
 }
