@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:grocery/cart/cart_screen.dart';
+import 'package:grocery/screens/cart.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
 import 'package:grocery/screens/home.dart';
 import 'package:grocery/screens/user.dart';

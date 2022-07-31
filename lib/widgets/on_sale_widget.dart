@@ -45,8 +45,8 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                   children: [
                     FancyShimmerImage(
                       imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-                      height: utils.screenSize.width * 0.22,
-                      width: utils.screenSize.width * 0.22,
+                      height: 90,
+                      width: 90,
                       boxFit: BoxFit.fill,
                     ),
                     Column(
