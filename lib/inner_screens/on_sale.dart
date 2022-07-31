@@ -3,6 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/widgets/on_sale_widget.dart';
 
 import '../services/utils.dart';
+import '../widgets/back_widget.dart';
 import '../widgets/text_widget.dart';
 
 class OnSaleScreen extends StatelessWidget {
@@ -15,16 +16,7 @@ class OnSaleScreen extends StatelessWidget {
     final utils = Utils(context);
     return Scaffold(
       appBar: AppBar(
-        leading: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: () {
-            Navigator.canPop(context) ? Navigator.pop(context) : null;
-          },
-          child: Icon(
-            IconlyLight.arrowLeft2,
-            color: utils.color,
-          ),
-        ),
+        leading: const BackWidget(),
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: TextWidget(

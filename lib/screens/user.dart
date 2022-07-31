@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery/services/global_methods.dart';
+import 'package:grocery/wishlist/wishlist_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/dark_theme_provider.dart';
@@ -84,7 +86,10 @@ class _UserScreenState extends State<UserScreen> {
                 _listTiles(
                   title: 'Wishlist',
                   icon: IconlyLight.heart,
-                  onPressed: () {},
+                  onPressed: () {
+                    GlobalMethods.navigateTo(
+                        ctx: context, routeName: WishlistScreen.routeName);
+                  },
                   color: color,
                 ),
                 _listTiles(
@@ -181,13 +186,13 @@ class _UserScreenState extends State<UserScreen> {
                 const Text('Sign out '),
                 Image.asset(
                   'assets/images/warning-sign.png',
-                  height: 20,
-                  width: 20,
+                  height: 30,
+                  width: 30,
                   fit: BoxFit.fill,
                 )
               ],
             ),
-            content: const Text('Do you wanna Sing out?'),
+            content: const Text('Do you wanna sign out?'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -201,7 +206,7 @@ class _UserScreenState extends State<UserScreen> {
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  'Sing out',
+                  'Sign out',
                   style: TextStyle(color: utils.redColor),
                 ),
               ),

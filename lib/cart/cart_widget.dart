@@ -44,7 +44,7 @@ class _CartWidgetState extends State<CartWidget> {
                 decoration: BoxDecoration(
                   color: utils.getTheme
                       ? Theme.of(context).cardColor.withOpacity(0.9)
-                      : Colors.white,
+                      : Colors.white.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(

@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/dark_theme_provider.dart';
 import '../services/utils.dart';
+import '../widgets/back_widget.dart';
 import '../widgets/text_widget.dart';
-import 'cart_widget.dart';
+import 'wishlist_widget.dart';
 
-class CartScreen extends StatelessWidget {
-  const CartScreen({Key? key}) : super(key: key);
+class WishlistScreen extends StatelessWidget {
+  static const routeName = "/WishlistScreen";
+  const WishlistScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final utils = Utils(context);
     return Scaffold(
       appBar: AppBar(
+        leading: const BackWidget(),
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: TextWidget(
-          text: 'Cart (items)',
+          text: 'Wishlist (items)',
           color: utils.color,
           textSize: 24,
           isTitle: true,
@@ -37,7 +39,7 @@ class CartScreen extends StatelessWidget {
                           : Colors.white,
                       title: Row(
                         children: [
-                          const Text('Clear cart! '),
+                          const Text('Clear wishlist! '),
                           Image.asset(
                             'assets/images/warning-sign.png',
                             height: 30,
@@ -46,7 +48,7 @@ class CartScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                      content: const Text('Your cart will be cleared!'),
+                      content: const Text('Your wishlist will be cleared!'),
                       actions: [
                         TextButton(
                           onPressed: () {
@@ -77,46 +79,14 @@ class CartScreen extends StatelessWidget {
               )),
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            height: utils.screenSize.height * 0.08,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: Row(
-                children: [
-                  Material(
-                    color: utils.blueColor,
-                    borderRadius: BorderRadius.circular(12),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(12),
-                      onTap: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextWidget(
-                          text: 'Order Now',
-                          color: utils.color,
-                          textSize: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  TextWidget(
-                      text: 'Total: price', color: utils.color, textSize: 22)
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (ctx, index) {
-                  return const CartWidget();
-                }),
-          ),
-        ],
+      body: GridView.count(
+        crossAxisCount: 2,
+        padding: EdgeInsets.zero,
+        childAspectRatio:
+            utils.screenSize.width / (utils.screenSize.height * 0.40),
+        children: List.generate(16, (index) {
+          return const WishlistWidget();
+        }),
       ),
     );
   }

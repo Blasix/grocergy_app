@@ -49,7 +49,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
         borderRadius: BorderRadius.circular(12),
         color: utils.getTheme
             ? Theme.of(context).cardColor.withOpacity(0.9)
-            : Colors.white,
+            : Colors.white.withOpacity(0.9),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () {
@@ -101,7 +101,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                     backgroundColor: MaterialStateProperty.all(
                       utils.getTheme
                           ? Theme.of(context).cardColor.withOpacity(0.9)
-                          : Colors.white,
+                          : Colors.white.withOpacity(0.9),
                     ),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(

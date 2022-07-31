@@ -5,6 +5,7 @@ import 'package:grocery/widgets/heart_btn.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
 import '../services/utils.dart';
+import '../widgets/back_widget.dart';
 
 class ProductDetails extends StatefulWidget {
   static const routeName = '/ProductDetails';
@@ -31,16 +32,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     final utils = Utils(context);
     return Scaffold(
       appBar: AppBar(
-        leading: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: () {
-            Navigator.canPop(context) ? Navigator.pop(context) : null;
-          },
-          child: Icon(
-            IconlyLight.arrowLeft2,
-            color: utils.color,
-          ),
-        ),
+        leading: const BackWidget(),
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
@@ -60,7 +52,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               decoration: BoxDecoration(
                 color: utils.getTheme
                     ? Theme.of(context).cardColor.withOpacity(0.9)
-                    : Colors.white,
+                    : Colors.white.withOpacity(0.9),
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(40),
                   topRight: Radius.circular(40),
@@ -134,9 +126,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
                   ),
                   Padding(
                     padding: EdgeInsets.only(
