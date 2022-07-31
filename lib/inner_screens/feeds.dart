@@ -48,69 +48,64 @@ class _FeedsScreenState extends State<FeedsScreen> {
           isTitle: true,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: kBottomNavigationBarHeight,
-                child: TextField(
-                  maxLines: 1,
-                  focusNode: _searchTextFocusNode,
-                  controller: _searchTextController,
-                  onChanged: (value) {
-                    setState(() {});
-                  },
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: utils.blueColor,
-                        width: 1,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: utils.color,
-                        width: 1,
-                      ),
-                    ),
-                    label: const Icon(Icons.search),
-                    hintText: 'Search Product',
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        _searchTextController.clear();
-                        _searchTextFocusNode.unfocus();
-                      },
-                      icon: Icon(Icons.close,
-                          color: _searchTextFocusNode.hasFocus
-                              ? utils.redColor
-                              : utils.color),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: kBottomNavigationBarHeight,
+              child: TextField(
+                maxLines: 1,
+                focusNode: _searchTextFocusNode,
+                controller: _searchTextController,
+                onChanged: (value) {
+                  setState(() {});
+                },
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                      color: utils.blueColor,
+                      width: 1,
                     ),
                   ),
-                  cursorColor: utils.blueColor,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                      color: utils.color,
+                      width: 1,
+                    ),
+                  ),
+                  label: const Icon(Icons.search),
+                  hintText: 'Search Product',
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      _searchTextController.clear();
+                      _searchTextFocusNode.unfocus();
+                    },
+                    icon: Icon(Icons.close,
+                        color: _searchTextFocusNode.hasFocus
+                            ? utils.redColor
+                            : utils.color),
+                  ),
                 ),
+                cursorColor: utils.blueColor,
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+          ),
+          Expanded(
+            child: GridView.count(
               crossAxisCount: 2,
               padding: EdgeInsets.zero,
               // crossAxisSpacing: 10,
               childAspectRatio:
-                  utils.screenSize.width / (utils.screenSize.height * 0.57),
+                  utils.screenSize.width / (utils.screenSize.height * 0.54),
               children: List.generate(16, (index) {
                 return const FeedsWidget();
               }),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

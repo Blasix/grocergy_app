@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.zero,
               // crossAxisSpacing: 10,
               childAspectRatio:
-                  utils.screenSize.width / (utils.screenSize.height * 0.57),
+                  utils.screenSize.width / (utils.screenSize.height * 0.54),
               children: List.generate(4, (index) {
                 return const FeedsWidget();
               }),

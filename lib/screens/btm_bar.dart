@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery/cart/cart_screen.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
-import 'package:grocery/screens/cart.dart';
 import 'package:grocery/screens/home.dart';
 import 'package:grocery/screens/user.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,7 @@ class BottomBarScreen extends StatefulWidget {
 }
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
   final List _pages = [
     const HomeScreen(),
     CategoriesScreen(),
