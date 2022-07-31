@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/widgets/feed_items.dart';
 
 import '../services/utils.dart';
@@ -90,8 +89,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
               crossAxisCount: 2,
               padding: EdgeInsets.zero,
               // crossAxisSpacing: 10,
-              childAspectRatio:
-                  utils.screenSize.width / (utils.screenSize.height * 0.54),
+              childAspectRatio: 100 / 116,
               children: List.generate(16, (index) {
                 return const FeedsWidget();
               }),

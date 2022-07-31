@@ -61,8 +61,8 @@ class _FeedsWidgetState extends State<FeedsWidget> {
             child: Column(children: [
               FancyShimmerImage(
                 imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-                height: utils.screenSize.width * 0.22,
-                width: utils.screenSize.width * 0.22,
+                height: 130,
+                width: 130,
                 boxFit: BoxFit.fill,
               ),
               Row(

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../provider/dark_theme_provider.dart';
 import '../services/utils.dart';
+import '../user_screens/viewed.dart';
 import '../widgets/text_widget.dart';
 
 class UserScreen extends StatefulWidget {

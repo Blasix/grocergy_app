@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/widgets/orders_widget.dart';
-import 'package:provider/provider.dart';
 import '../inner_screens/empty.dart';
-import '../provider/dark_theme_provider.dart';
 import '../services/utils.dart';
 import '../widgets/back_widget.dart';
 import '../widgets/text_widget.dart';
@@ -14,7 +11,7 @@ class OrdersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isEmpty = false;
+    bool isEmpty = true;
     final utils = Utils(context);
     return Scaffold(
       appBar: AppBar(
