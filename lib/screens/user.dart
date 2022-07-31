@@ -39,25 +39,31 @@ class _UserScreenState extends State<UserScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                RichText(
-                  text: TextSpan(
-                    text: 'Hi, ',
-                    style: TextStyle(
-                      color: color,
-                      fontSize: 27,
-                      fontWeight: FontWeight.bold,
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Hi, ',
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 27,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: const <TextSpan>[
+                        TextSpan(
+                          text: 'Name',
+                        )
+                      ],
                     ),
-                    children: const <TextSpan>[
-                      TextSpan(
-                        text: 'Name',
-                      )
-                    ],
                   ),
                 ),
-                TextWidget(
-                  text: 'Email',
-                  color: color,
-                  textSize: 18,
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: TextWidget(
+                    text: 'Email',
+                    color: color,
+                    textSize: 18,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,

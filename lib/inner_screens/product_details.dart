@@ -1,6 +1,5 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/widgets/heart_btn.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
@@ -47,7 +46,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
           ),
           Flexible(
-            flex: 3,
+            flex: 4,
             child: Container(
               decoration: BoxDecoration(
                 color: utils.getTheme
@@ -135,47 +134,49 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: _quantityController(utils: utils),
                   ),
                   const Spacer(),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 20, left: 30, right: 30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextWidget(
-                                text: 'Total',
-                                color: utils.orangeColor,
-                                textSize: 20,
-                                isTitle: true,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              TextWidget(
-                                text: 'Price',
-                                color: utils.color,
-                                textSize: 20,
-                                isTitle: true,
-                              )
-                            ],
+                  SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 20, left: 30, right: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextWidget(
+                                  text: 'Total',
+                                  color: utils.orangeColor,
+                                  textSize: 20,
+                                  isTitle: true,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                TextWidget(
+                                  text: 'Price',
+                                  color: utils.color,
+                                  textSize: 20,
+                                  isTitle: true,
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        Flexible(
-                            child: Material(
-                          color: utils.greenColor,
-                          borderRadius: BorderRadius.circular(10),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: TextWidget(
-                                text: 'Add to cart',
-                                color: utils.color,
-                                textSize: 18),
-                          ),
-                        ))
-                      ],
+                          Flexible(
+                              child: Material(
+                            color: utils.greenColor,
+                            borderRadius: BorderRadius.circular(10),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: TextWidget(
+                                  text: 'Add to cart',
+                                  color: utils.color,
+                                  textSize: 18),
+                            ),
+                          ))
+                        ],
+                      ),
                     ),
                   )
                 ],

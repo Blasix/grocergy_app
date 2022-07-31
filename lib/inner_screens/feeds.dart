@@ -89,9 +89,6 @@ class _FeedsScreenState extends State<FeedsScreen> {
             child: GridView.count(
               crossAxisCount: 2,
               padding: EdgeInsets.zero,
-              // crossAxisSpacing: 10,
-              childAspectRatio:
-                  utils.screenSize.width / (utils.screenSize.height * 0.54),
               children: List.generate(16, (index) {
                 return const FeedsWidget();
               }),

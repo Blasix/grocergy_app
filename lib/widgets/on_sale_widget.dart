@@ -41,6 +41,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     FancyShimmerImage(
                       imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',

@@ -82,8 +82,7 @@ class WishlistScreen extends StatelessWidget {
       body: GridView.count(
         crossAxisCount: 2,
         padding: EdgeInsets.zero,
-        childAspectRatio:
-            utils.screenSize.width / (utils.screenSize.height * 0.40),
+        childAspectRatio: 40 / 30,
         children: List.generate(16, (index) {
           return const WishlistWidget();
         }),
