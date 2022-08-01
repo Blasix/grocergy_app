@@ -1,6 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:grocery/inner_screens/feeds.dart';
 import 'package:grocery/inner_screens/on_sale.dart';
 import 'package:grocery/services/global_methods.dart';
@@ -131,17 +132,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              padding: EdgeInsets.zero,
-              // crossAxisSpacing: 10,
-              childAspectRatio: 100 / 116,
-              children: List.generate(4, (index) {
-                return const FeedsWidget();
-              }),
-            ),
+            MasonryGridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 12,
+                crossAxisCount: 2,
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) {
+                  return const SizedBox(height: 242, child: FeedsWidget());
+                }),
             // const FeedsWidget()
           ],
         ),

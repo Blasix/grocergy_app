@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:grocery/widgets/feed_items.dart';
 
 import '../services/utils.dart';
@@ -85,15 +86,13 @@ class _FeedsScreenState extends State<FeedsScreen> {
             ),
           ),
           Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              padding: EdgeInsets.zero,
-              // crossAxisSpacing: 10,
-              childAspectRatio: 100 / 116,
-              children: List.generate(16, (index) {
-                return const FeedsWidget();
-              }),
-            ),
+            child: MasonryGridView.count(
+                itemCount: 12,
+                crossAxisCount: 2,
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) {
+                  return const SizedBox(height: 242, child: FeedsWidget());
+                }),
           ),
         ],
       ),
