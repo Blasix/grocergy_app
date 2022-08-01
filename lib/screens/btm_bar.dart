@@ -1,9 +1,11 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/screens/cart.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
 import 'package:grocery/screens/home.dart';
 import 'package:grocery/screens/user.dart';
+import 'package:grocery/services/utils.dart';
 import 'package:provider/provider.dart';
 
 import 'categories.dart';
@@ -58,7 +60,15 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             label: "Catagories",
           ),
           BottomNavigationBarItem(
-            icon: Icon(_selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy),
+            icon: Badge(
+              toAnimate: true,
+              shape: BadgeShape.circle,
+              badgeColor: Utils(context).orangeColor,
+              badgeContent: const FittedBox(child: Text('1')),
+              child: Icon(
+                _selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy,
+              ),
+            ),
             label: "Cart",
           ),
           BottomNavigationBarItem(
