@@ -65,7 +65,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                   imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
                   height: 130,
                   width: 130,
-                  boxFit: BoxFit.fill,
+                  boxFit: BoxFit.cover,
                 ),
               ),
               Row(
