@@ -56,8 +56,8 @@ class _FeedsWidgetState extends State<FeedsWidget> {
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () {
-            GlobalMethods.navigateTo(
-                ctx: context, routeName: ProductDetails.routeName);
+            Navigator.pushNamed(context, ProductDetails.routeName,
+                arguments: productModel.id);
           },
           child: Padding(
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),

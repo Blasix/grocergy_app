@@ -2,7 +2,9 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/widgets/heart_btn.dart';
 import 'package:grocery/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/product_provider.dart';
 import '../services/utils.dart';
 import '../widgets/back_widget.dart';
 
@@ -29,6 +31,13 @@ class _ProductDetailsState extends State<ProductDetails> {
       });
     }
     final utils = Utils(context);
+    final productProviders = Provider.of<ProductsProvider>(context);
+    final productID = ModalRoute.of(context)!.settings.arguments as String;
+    final getCurrentProduct = productProviders.findProdById(productID);
+
+    double usedPrice = getCurrentProduct.isOnSale
+        ? getCurrentProduct.salePrice
+        : getCurrentProduct.price;
     return Scaffold(
       appBar: AppBar(
         leading: const BackWidget(),
@@ -40,13 +49,16 @@ class _ProductDetailsState extends State<ProductDetails> {
           Flexible(
             flex: 2,
             child: FancyShimmerImage(
-              imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+              imageUrl: getCurrentProduct.imageUrl,
               width: utils.screenSize.width,
               boxFit: BoxFit.scaleDown,
             ),
           ),
+          const SizedBox(
+            height: 12,
+          ),
           Flexible(
-            flex: 4,
+            flex: 3,
             child: Container(
               decoration: BoxDecoration(
                 color: utils.getTheme
@@ -68,7 +80,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       children: [
                         Flexible(
                           child: TextWidget(
-                            text: 'Title',
+                            text: getCurrentProduct.title,
                             color: utils.color,
                             textSize: 25,
                             isTitle: true,
@@ -86,19 +98,23 @@ class _ProductDetailsState extends State<ProductDetails> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         TextWidget(
-                          text: 'price',
+                          text: '€${usedPrice.toStringAsFixed(2)}',
                           color: utils.greenColor,
                           textSize: 22,
                           isTitle: true,
                         ),
                         TextWidget(
-                            text: '/kg', color: utils.color, textSize: 12),
+                            text:
+                                '/${getCurrentProduct.isPiece ? 'Piece' : 'KG'}',
+                            color: utils.color,
+                            textSize: 12),
                         const SizedBox(
                           width: 10,
                         ),
                         Visibility(
+                          visible: getCurrentProduct.isOnSale,
                           child: Text(
-                            'Sale',
+                            '€${getCurrentProduct.price.toStringAsFixed(2)}',
                             style: TextStyle(
                               fontSize: 15,
                               color: utils.color,
@@ -128,7 +144,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                        top: 20,
+                        top: 40,
                         left: utils.screenSize.width * 0.3,
                         right: utils.screenSize.width * 0.3),
                     child: _quantityController(utils: utils),
@@ -154,11 +170,22 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                TextWidget(
-                                  text: 'Price',
-                                  color: utils.color,
-                                  textSize: 20,
-                                  isTitle: true,
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    TextWidget(
+                                      text:
+                                          '€${(usedPrice * _currentValue).toStringAsFixed(2)}',
+                                      color: utils.color,
+                                      textSize: 20,
+                                      isTitle: true,
+                                    ),
+                                    TextWidget(
+                                        text:
+                                            '/$_currentValue${getCurrentProduct.isPiece ? 'Piece' : 'KG'}',
+                                        color: utils.color,
+                                        textSize: 16)
+                                  ],
                                 )
                               ],
                             ),
