@@ -10,17 +10,4 @@ class Consts {
     'assets/images/landing/store.jpg',
     'assets/images/landing/vergtablebg.jpg',
   ];
-
-  static List<ProductModel> products = [
-    ProductModel(
-      id: '1',
-      title: 'Apricots',
-      imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-      productCategoryName: 'Fruits',
-      price: 3.99,
-      salePrice: 2.99,
-      isOnSale: false,
-      isPiece: false,
-    ),
-  ];
 }

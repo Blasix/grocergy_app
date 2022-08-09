@@ -2,13 +2,15 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:grocery/constants/consts.dart';
 import 'package:grocery/inner_screens/feeds.dart';
 import 'package:grocery/inner_screens/on_sale.dart';
 import 'package:grocery/services/global_methods.dart';
 import 'package:grocery/widgets/feed_items.dart';
 import 'package:grocery/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
+import '../models/products_model.dart';
+import '../providers/product_provider.dart';
 import '../services/utils.dart';
 import '../widgets/on_sale_widget.dart';
 
@@ -30,6 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final utils = Utils(context);
+    final productProviders = Provider.of<ProductsProvider>(context);
+    List<ProductModel> allProducts = productProviders.getProducts;
+    List<ProductModel> onSaleProducts = productProviders.getOnSaleProducts;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -94,10 +99,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: SizedBox(
                     height: 177,
                     child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: onSaleProducts.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (ctx, index) {
-                        return const OnSaleWidget();
+                        return ChangeNotifierProvider.value(
+                          value: onSaleProducts[index],
+                          child: const OnSaleWidget(),
+                        );
                       },
                     ),
                   ),
@@ -112,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   TextWidget(
-                    text: 'Our products (per kg)',
+                    text: 'Our products',
                     color: utils.color,
                     textSize: 20,
                     isTitle: true,
@@ -136,12 +144,17 @@ class _HomeScreenState extends State<HomeScreen> {
             MasonryGridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount:
-                    Consts.products.length < 4 ? Consts.products.length : 4,
+                itemCount: allProducts.length < 4 ? allProducts.length : 4,
                 crossAxisCount: 2,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
-                  return const SizedBox(height: 242, child: FeedsWidget());
+                  return SizedBox(
+                    height: 242,
+                    child: ChangeNotifierProvider.value(
+                      value: allProducts[index],
+                      child: const FeedsWidget(),
+                    ),
+                  );
                 }),
             // const FeedsWidget()
           ],

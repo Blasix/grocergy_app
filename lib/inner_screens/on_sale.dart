@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/widgets/on_sale_widget.dart';
+import 'package:provider/provider.dart';
 
+import '../models/products_model.dart';
+import '../providers/product_provider.dart';
 import '../services/utils.dart';
 import '../widgets/back_widget.dart';
 import '../widgets/text_widget.dart';
@@ -11,8 +14,9 @@ class OnSaleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isEmpty = false;
     final utils = Utils(context);
+    final productProviders = Provider.of<ProductsProvider>(context);
+    List<ProductModel> onSaleProducts = productProviders.getOnSaleProducts;
     return Scaffold(
       appBar: AppBar(
         leading: const BackWidget(),
@@ -25,7 +29,7 @@ class OnSaleScreen extends StatelessWidget {
           isTitle: true,
         ),
       ),
-      body: isEmpty
+      body: onSaleProducts.isEmpty
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -50,8 +54,11 @@ class OnSaleScreen extends StatelessWidget {
               padding: EdgeInsets.zero,
               // crossAxisSpacing: 10,
               childAspectRatio: 100 / 90.2,
-              children: List.generate(16, (index) {
-                return const OnSaleWidget();
+              children: List.generate(onSaleProducts.length, (index) {
+                return ChangeNotifierProvider.value(
+                  value: onSaleProducts[index],
+                  child: const OnSaleWidget(),
+                );
               }),
             ),
     );

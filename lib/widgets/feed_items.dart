@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:grocery/services/global_methods.dart';
 import 'package:grocery/widgets/price_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../inner_screens/product_details.dart';
+import '../models/products_model.dart';
 import '../services/utils.dart';
 import 'heart_btn.dart';
 
@@ -32,6 +34,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final productModel = Provider.of<ProductModel>(context);
     if (_currentValue == 0) {
       setState(() {
         _currentValue++;
@@ -61,11 +64,14 @@ class _FeedsWidgetState extends State<FeedsWidget> {
             child: Column(children: [
               Flexible(
                 flex: 50,
-                child: FancyShimmerImage(
-                  imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-                  height: 130,
-                  width: 130,
-                  boxFit: BoxFit.cover,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FancyShimmerImage(
+                    imageUrl: productModel.imageUrl,
+                    height: 130,
+                    width: 130,
+                    boxFit: BoxFit.contain,
+                  ),
                 ),
               ),
               Row(
@@ -75,7 +81,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                     flex: 3,
                     child: TextWidget(
                       maxLines: 1,
-                      text: 'Product',
+                      text: productModel.title,
                       color: utils.color,
                       textSize: 20,
                       isTitle: true,
@@ -91,14 +97,19 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                 height: 7,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  PriceWidget(
-                    isOnSale: false,
-                    price: 3.99,
-                    salePrice: 2.99,
-                    textPrice: _currentValue.toString(),
+                  Flexible(
+                    child: PriceWidget(
+                      isOnSale: productModel.isOnSale,
+                      price: productModel.price,
+                      salePrice: productModel.salePrice,
+                      textPrice: _currentValue.toString(),
+                    ),
                   ),
-                  const Spacer(),
+                  const SizedBox(
+                    width: 5,
+                  ),
                   _quantityController(utils: utils)
                 ],
               ),

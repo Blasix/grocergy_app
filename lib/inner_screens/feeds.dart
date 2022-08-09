@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:grocery/constants/consts.dart';
+import 'package:grocery/models/products_model.dart';
+import 'package:grocery/providers/product_provider.dart';
 import 'package:grocery/widgets/feed_items.dart';
+import 'package:provider/provider.dart';
 
 import '../services/utils.dart';
 import '../widgets/back_widget.dart';
@@ -29,6 +32,8 @@ class _FeedsScreenState extends State<FeedsScreen> {
   @override
   Widget build(BuildContext context) {
     final utils = Utils(context);
+    final productProviders = Provider.of<ProductsProvider>(context);
+    List<ProductModel> allProducts = productProviders.getProducts;
     return Scaffold(
       appBar: AppBar(
         leading: const BackWidget(),
@@ -88,11 +93,17 @@ class _FeedsScreenState extends State<FeedsScreen> {
           ),
           Expanded(
             child: MasonryGridView.count(
-                itemCount: Consts.products.length,
+                itemCount: allProducts.length,
                 crossAxisCount: 2,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
-                  return const SizedBox(height: 242, child: FeedsWidget());
+                  return SizedBox(
+                    height: 242,
+                    child: ChangeNotifierProvider.value(
+                      value: allProducts[index],
+                      child: const FeedsWidget(),
+                    ),
+                  );
                 }),
           ),
         ],
