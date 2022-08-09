@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:grocery/constants/consts.dart';
 import 'package:grocery/inner_screens/feeds.dart';
 import 'package:grocery/inner_screens/on_sale.dart';
 import 'package:grocery/services/global_methods.dart';
@@ -135,7 +136,8 @@ class _HomeScreenState extends State<HomeScreen> {
             MasonryGridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: 12,
+                itemCount:
+                    Consts.products.length < 4 ? Consts.products.length : 4,
                 crossAxisCount: 2,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {

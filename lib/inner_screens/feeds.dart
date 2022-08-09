@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:grocery/constants/consts.dart';
 import 'package:grocery/widgets/feed_items.dart';
 
 import '../services/utils.dart';
@@ -87,7 +88,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
           ),
           Expanded(
             child: MasonryGridView.count(
-                itemCount: 12,
+                itemCount: Consts.products.length,
                 crossAxisCount: 2,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {

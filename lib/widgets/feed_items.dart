@@ -59,22 +59,32 @@ class _FeedsWidgetState extends State<FeedsWidget> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
             child: Column(children: [
-              FancyShimmerImage(
-                imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-                height: 130,
-                width: 130,
-                boxFit: BoxFit.fill,
+              Flexible(
+                flex: 50,
+                child: FancyShimmerImage(
+                  imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+                  height: 130,
+                  width: 130,
+                  boxFit: BoxFit.fill,
+                ),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextWidget(
-                    text: 'Product',
-                    color: utils.color,
-                    textSize: 20,
-                    isTitle: true,
+                  Flexible(
+                    flex: 3,
+                    child: TextWidget(
+                      maxLines: 1,
+                      text: 'Product',
+                      color: utils.color,
+                      textSize: 20,
+                      isTitle: true,
+                    ),
                   ),
-                  const Spacer(),
-                  const HearthBTN()
+                  const Flexible(
+                    flex: 1,
+                    child: HearthBTN(),
+                  )
                 ],
               ),
               const SizedBox(
