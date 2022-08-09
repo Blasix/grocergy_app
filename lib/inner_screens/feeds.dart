@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:grocery/constants/consts.dart';
 import 'package:grocery/models/products_model.dart';
 import 'package:grocery/providers/product_provider.dart';
 import 'package:grocery/widgets/feed_items.dart';

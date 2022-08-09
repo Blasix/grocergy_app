@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Flexible(
                   child: SizedBox(
-                    height: 177,
+                    height: utils.screenSize.width * 0.45,
                     child: ListView.builder(
                       itemCount: onSaleProducts.length,
                       scrollDirection: Axis.horizontal,

@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 
 import '../inner_screens/product_details.dart';
 import '../models/products_model.dart';
-import '../services/global_methods.dart';
 import 'heart_btn.dart';
 
 class OnSaleWidget extends StatefulWidget {
@@ -42,43 +41,44 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    FancyShimmerImage(
-                      imageUrl: productModel.imageUrl,
-                      height: 90,
-                      width: 90,
-                      boxFit: BoxFit.contain,
-                    ),
-                    Column(
-                      children: [
-                        TextWidget(
-                          text: '1${productModel.isPiece ? 'P' : 'KG'}',
-                          color: utils.color,
-                          textSize: 22,
-                          isTitle: true,
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {},
-                              child: Icon(
-                                IconlyLight.bag2,
-                                size: 22,
-                                color: utils.color,
+                Flexible(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      FancyShimmerImage(
+                        imageUrl: productModel.imageUrl,
+                        width: utils.screenSize.width * 0.3,
+                        boxFit: BoxFit.contain,
+                      ),
+                      Column(
+                        children: [
+                          TextWidget(
+                            text: '1${productModel.isPiece ? 'P' : 'KG'}',
+                            color: utils.color,
+                            textSize: 22,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {},
+                                child: Icon(
+                                  IconlyLight.bag2,
+                                  size: 22,
+                                  color: utils.color,
+                                ),
                               ),
-                            ),
-                            const HearthBTN()
-                          ],
-                        ),
-                      ],
-                    )
-                  ],
+                              const HearthBTN()
+                            ],
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 PriceWidget(
                     isOnSale: productModel.isOnSale,

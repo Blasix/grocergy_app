@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:grocery/widgets/text_widget.dart';
 
 class AuthBTN extends StatelessWidget {
   const AuthBTN({Key? key, required this.fct, required this.btnText})

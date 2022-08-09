@@ -1,10 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:form_validator/form_validator.dart';
-import 'package:grocery/widgets/back_widget.dart';
 
 import '../../constants/consts.dart';
 import '../../services/utils.dart';

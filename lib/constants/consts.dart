@@ -1,5 +1,3 @@
-import 'package:grocery/models/products_model.dart';
-
 class Consts {
   static final List<String> authImages = [
     'assets/images/landing/buy-on-laptop.jpg',
