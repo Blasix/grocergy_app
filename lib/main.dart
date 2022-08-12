@@ -14,6 +14,7 @@ import 'package:grocery/user_screens/wishlist.dart';
 import 'package:provider/provider.dart';
 
 import 'constants/theme_data.dart';
+import 'inner_screens/cat_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -68,6 +69,7 @@ class _MyAppState extends State<MyApp> {
             RegisterScreen.routeName: (ctx) => const RegisterScreen(),
             LoginScreen.routeName: (ctx) => const LoginScreen(),
             ForgotPassScreen.routeName: (ctx) => const ForgotPassScreen(),
+            CategoryScreen.routeName: (ctx) => const CategoryScreen(),
           },
         );
       }),
