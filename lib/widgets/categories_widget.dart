@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/dark_theme_provider.dart';
+import '../providers/dark_theme_provider.dart';
 
 class CategoriesWidget extends StatelessWidget {
   const CategoriesWidget(

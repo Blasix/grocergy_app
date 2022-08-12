@@ -104,7 +104,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (ctx, index) {
                         return ChangeNotifierProvider.value(
                           value: onSaleProducts[index],
-                          child: const OnSaleWidget(),
+                          child: SizedBox(
+                              width: utils.screenSize.width * 0.45,
+                              child: const OnSaleWidget()),
                         );
                       },
                     ),

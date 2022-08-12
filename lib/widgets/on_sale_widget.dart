@@ -46,10 +46,15 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      FancyShimmerImage(
-                        imageUrl: productModel.imageUrl,
-                        width: utils.screenSize.width * 0.3,
-                        boxFit: BoxFit.contain,
+                      Flexible(
+                        child: FancyShimmerImage(
+                          imageUrl: productModel.imageUrl,
+                          width: utils.screenSize.width * 0.3,
+                          boxFit: BoxFit.contain,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 6,
                       ),
                       Column(
                         children: [

@@ -7,7 +7,7 @@ import 'package:grocery/screens/auth/forgot_pass.dart';
 import 'package:grocery/screens/auth/login.dart';
 import 'package:grocery/screens/auth/register.dart';
 import 'package:grocery/user_screens/orders.dart';
-import 'package:grocery/provider/dark_theme_provider.dart';
+import 'package:grocery/providers/dark_theme_provider.dart';
 import 'package:grocery/screens/btm_bar.dart';
 import 'package:grocery/user_screens/viewed.dart';
 import 'package:grocery/user_screens/wishlist.dart';

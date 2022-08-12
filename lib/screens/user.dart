@@ -6,7 +6,7 @@ import 'package:grocery/user_screens/viewed.dart';
 import 'package:grocery/user_screens/wishlist.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/dark_theme_provider.dart';
+import '../providers/dark_theme_provider.dart';
 import '../services/utils.dart';
 import '../user_screens/viewed.dart';
 import '../widgets/text_widget.dart';

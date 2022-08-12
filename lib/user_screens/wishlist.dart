@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/inner_screens/empty.dart';
 import 'package:provider/provider.dart';
-import '../provider/dark_theme_provider.dart';
+import '../providers/dark_theme_provider.dart';
 import '../services/utils.dart';
 import '../widgets/back_widget.dart';
 import '../widgets/text_widget.dart';
