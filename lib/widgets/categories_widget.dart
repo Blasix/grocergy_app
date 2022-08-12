@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:grocery/inner_screens/cat_screen.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';

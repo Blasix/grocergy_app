@@ -8,6 +8,7 @@ import 'package:grocery/screens/user.dart';
 import 'package:grocery/services/utils.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/dark_theme_provider.dart';
 import 'categories.dart';
 
 class BottomBarScreen extends StatefulWidget {

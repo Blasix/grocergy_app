@@ -109,7 +109,10 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                   const SizedBox(
                     width: 5,
                   ),
-                  _quantityController(utils: utils)
+                  Flexible(
+                      child: _quantityController(
+                          utils: utils,
+                          indicator: productModel.isPiece ? 'p' : 'kg'))
                 ],
               ),
               const Spacer(),
@@ -147,7 +150,8 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     );
   }
 
-  Widget _quantityController({required Utils utils}) {
+  Widget _quantityController(
+      {required Utils utils, required String indicator}) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -166,20 +170,32 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                 _currentValue--;
               });
             },
-            child: const Icon(Icons.remove),
-          ),
-          SizedBox(
-            width: 24,
-            child: Text(
-              textAlign: TextAlign.center,
-              _currentValue.toString(),
-              style: TextStyle(
-                fontSize: 18,
-                color: utils.color,
-              ),
+            child: const Icon(
+              Icons.remove,
+              size: 20,
             ),
           ),
-          // const SizedBox(
+          const Spacer(),
+          Text(
+            textScaleFactor: 1,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            _currentValue.toString(),
+            style: TextStyle(
+              fontSize: 18,
+              color: utils.color,
+            ),
+          ),
+          Text(
+            maxLines: 1,
+            textAlign: TextAlign.end,
+            indicator,
+            style: TextStyle(
+              fontSize: 12,
+              color: utils.color,
+            ),
+          ),
+          const Spacer(),
           InkWell(
             borderRadius: BorderRadius.circular(12),
             onTap: () {
@@ -187,7 +203,10 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                 _currentValue++;
               });
             },
-            child: const Icon(Icons.add),
+            child: const Icon(
+              Icons.add,
+              size: 20,
+            ),
           ),
         ],
       ),
