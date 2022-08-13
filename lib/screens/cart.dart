@@ -3,6 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
 import '../inner_screens/empty.dart';
+import '../providers/cart_provider.dart';
 import '../providers/dark_theme_provider.dart';
 import '../services/utils.dart';
 import '../widgets/cart_widget.dart';
@@ -14,20 +15,22 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final utils = Utils(context);
-    bool isEmpty = false;
+    final cartProvider = Provider.of<CartProvider>(context);
+    final cartItemsList = cartProvider.getCartItems.values.toList();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: TextWidget(
-          text: 'Cart (items)',
+          text: 'Cart (${cartItemsList.length})',
           color: utils.color,
           textSize: 24,
           isTitle: true,
         ),
         actions: [
           Visibility(
-            visible: !isEmpty,
+            visible: cartItemsList.isNotEmpty,
             child: IconButton(
                 onPressed: () async {
                   await showDialog(
@@ -65,7 +68,12 @@ class CartScreen extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              cartProvider.clearCart();
+                              Navigator.canPop(context)
+                                  ? Navigator.pop(context)
+                                  : null;
+                            },
                             child: Text(
                               'Clear',
                               style: TextStyle(color: utils.redColor),
@@ -83,7 +91,7 @@ class CartScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: isEmpty
+      body: cartItemsList.isEmpty
           ? const EmptyScreen(
               emptyText: 'There are no items in your cart',
               image: 'assets/images/cart.png',
@@ -124,9 +132,14 @@ class CartScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: cartItemsList.length,
                       itemBuilder: (ctx, index) {
-                        return const CartWidget();
+                        return ChangeNotifierProvider.value(
+                          value: cartItemsList[index],
+                          child: CartWidget(
+                            q: cartItemsList[index].quantity,
+                          ),
+                        );
                       }),
                 ),
               ],

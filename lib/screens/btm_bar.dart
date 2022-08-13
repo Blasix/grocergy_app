@@ -8,6 +8,7 @@ import 'package:grocery/screens/user.dart';
 import 'package:grocery/services/utils.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/cart_provider.dart';
 import '../providers/dark_theme_provider.dart';
 import 'categories.dart';
 
@@ -35,6 +36,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
+    final cartProvider =
+        Provider.of<CartProvider>(context).getCartItems.values.toList();
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -65,7 +68,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               toAnimate: true,
               shape: BadgeShape.circle,
               badgeColor: Utils(context).orangeColor,
-              badgeContent: const FittedBox(child: Text('1')),
+              badgeContent:
+                  FittedBox(child: Text(cartProvider.length.toString())),
               child: Icon(
                 _selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy,
               ),

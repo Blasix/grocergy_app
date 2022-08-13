@@ -31,9 +31,9 @@ class _ProductDetailsState extends State<ProductDetails> {
       });
     }
     final utils = Utils(context);
-    final productProviders = Provider.of<ProductsProvider>(context);
+    final productProvider = Provider.of<ProductsProvider>(context);
     final productID = ModalRoute.of(context)!.settings.arguments as String;
-    final getCurrentProduct = productProviders.findProdById(productID);
+    final getCurrentProduct = productProvider.findProdById(productID);
 
     double usedPrice = getCurrentProduct.isOnSale
         ? getCurrentProduct.salePrice
