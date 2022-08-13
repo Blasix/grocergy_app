@@ -36,6 +36,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
   Widget build(BuildContext context) {
     final productModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+    bool? isInCart = cartProvider.getCartItems.containsKey(productModel.id);
     if (_currentValue == 0) {
       setState(() {
         _currentValue++;
@@ -121,12 +122,14 @@ class _FeedsWidgetState extends State<FeedsWidget> {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {
-                    cartProvider.addProductsToCart(
-                      productID: productModel.id,
-                      quantity: _currentValue,
-                    );
-                  },
+                  onPressed: isInCart
+                      ? null
+                      : () {
+                          cartProvider.addProductsToCart(
+                            productID: productModel.id,
+                            quantity: _currentValue,
+                          );
+                        },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
                       utils.getTheme
@@ -144,7 +147,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                     ),
                   ),
                   child: TextWidget(
-                    text: 'Add to Cart',
+                    text: isInCart ? 'In cart' : 'Add to Cart',
                     color: utils.color,
                     textSize: 20,
                   ),

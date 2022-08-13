@@ -24,6 +24,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
     final utils = Utils(context);
     final productModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+    bool? isInCart = cartProvider.getCartItems.containsKey(productModel.id);
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Material(
@@ -72,16 +73,19 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                           Row(
                             children: [
                               GestureDetector(
-                                onTap: () {
-                                  cartProvider.addProductsToCart(
-                                    productID: productModel.id,
-                                    quantity: 1,
-                                  );
-                                },
+                                onTap: isInCart
+                                    ? null
+                                    : () {
+                                        cartProvider.addProductsToCart(
+                                          productID: productModel.id,
+                                          quantity: 1,
+                                        );
+                                      },
                                 child: Icon(
-                                  IconlyLight.bag2,
+                                  isInCart ? IconlyBold.bag2 : IconlyLight.bag2,
                                   size: 22,
-                                  color: utils.color,
+                                  color:
+                                      isInCart ? utils.blueColor : utils.color,
                                 ),
                               ),
                               const HearthBTN()

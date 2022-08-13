@@ -4,6 +4,7 @@ import 'package:grocery/widgets/heart_btn.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/cart_provider.dart';
 import '../providers/product_provider.dart';
 import '../services/utils.dart';
 import '../widgets/back_widget.dart';
@@ -32,8 +33,10 @@ class _ProductDetailsState extends State<ProductDetails> {
     }
     final utils = Utils(context);
     final productProvider = Provider.of<ProductsProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
     final productID = ModalRoute.of(context)!.settings.arguments as String;
     final getCurrentProduct = productProvider.findProdById(productID);
+    bool? isInCart = cartProvider.getCartItems.containsKey(productID);
 
     double usedPrice = getCurrentProduct.isOnSale
         ? getCurrentProduct.salePrice
@@ -194,12 +197,22 @@ class _ProductDetailsState extends State<ProductDetails> {
                               child: Material(
                             color: utils.greenColor,
                             borderRadius: BorderRadius.circular(10),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: TextWidget(
-                                  text: 'Add to cart',
-                                  color: utils.color,
-                                  textSize: 18),
+                            child: InkWell(
+                              onTap: isInCart
+                                  ? null
+                                  : () {
+                                      cartProvider.addProductsToCart(
+                                          productID: productID,
+                                          quantity: _currentValue);
+                                    },
+                              borderRadius: BorderRadius.circular(10),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: TextWidget(
+                                    text: isInCart ? 'In cart' : 'Add to Cart',
+                                    color: utils.color,
+                                    textSize: 18),
+                              ),
                             ),
                           ))
                         ],
