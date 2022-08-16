@@ -8,8 +8,9 @@ import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../inner_screens/product_details.dart';
+import '../models/products_model.dart';
 import '../providers/cart_provider.dart';
-import '../services/global_methods.dart';
+import '../providers/wishlist_provider.dart';
 import '../services/utils.dart';
 
 class CartWidget extends StatefulWidget {
@@ -35,6 +36,9 @@ class _CartWidgetState extends State<CartWidget> {
     final cartModel = Provider.of<CartModel>(context);
     final getCurrentProduct = productProvider.findProdById(cartModel.productID);
     final cartProvider = Provider.of<CartProvider>(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    bool? isInWishlist =
+        wishlistProvider.getWishlistItems.containsKey(cartModel.productID);
     double usedPrice = getCurrentProduct.isOnSale
         ? getCurrentProduct.salePrice
         : getCurrentProduct.price;
@@ -104,7 +108,10 @@ class _CartWidgetState extends State<CartWidget> {
                           const SizedBox(
                             height: 6,
                           ),
-                          const HearthBTN(),
+                          HearthBTN(
+                            productID: cartModel.productID,
+                            isInWishlist: isInWishlist,
+                          ),
                           const SizedBox(
                             height: 6,
                           ),

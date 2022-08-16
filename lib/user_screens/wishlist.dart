@@ -3,6 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/inner_screens/empty.dart';
 import 'package:provider/provider.dart';
 import '../providers/dark_theme_provider.dart';
+import '../providers/wishlist_provider.dart';
 import '../services/utils.dart';
 import '../widgets/back_widget.dart';
 import '../widgets/text_widget.dart';
@@ -14,22 +15,23 @@ class WishlistScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isEmpty = false;
     final utils = Utils(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    final wishlistItemList = wishlistProvider.getWishlistItems.values.toList();
     return Scaffold(
       appBar: AppBar(
         leading: const BackWidget(),
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: TextWidget(
-          text: 'Wishlist (items)',
+          text: 'Wishlist (${wishlistItemList.length})',
           color: utils.color,
           textSize: 24,
           isTitle: true,
         ),
         actions: [
           Visibility(
-            visible: !isEmpty,
+            visible: wishlistItemList.isNotEmpty,
             child: IconButton(
                 onPressed: () async {
                   await showDialog(
@@ -67,7 +69,12 @@ class WishlistScreen extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              wishlistProvider.clearWishlist();
+                              Navigator.canPop(context)
+                                  ? Navigator.pop(context)
+                                  : null;
+                            },
                             child: Text(
                               'Clear',
                               style: TextStyle(color: utils.redColor),
@@ -85,7 +92,7 @@ class WishlistScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: isEmpty
+      body: wishlistItemList.isEmpty
           ? const EmptyScreen(
               emptyText: 'You have not wishlisted any items',
               image: 'assets/images/wishlist.png',
@@ -93,9 +100,14 @@ class WishlistScreen extends StatelessWidget {
           : GridView.count(
               crossAxisCount: 2,
               padding: EdgeInsets.zero,
-              childAspectRatio: 40 / 30,
-              children: List.generate(16, (index) {
-                return const WishlistWidget();
+              childAspectRatio: 100 / 80,
+              children: List.generate(wishlistItemList.length, (index) {
+                return ChangeNotifierProvider.value(
+                  value: wishlistItemList[index],
+                  child: const WishlistWidget(
+                      // q: cartItemsList[index].quantity,
+                      ),
+                );
               }),
             ),
     );

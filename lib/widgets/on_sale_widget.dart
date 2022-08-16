@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../inner_screens/product_details.dart';
 import '../models/products_model.dart';
 import '../providers/cart_provider.dart';
+import '../providers/wishlist_provider.dart';
 import 'heart_btn.dart';
 
 class OnSaleWidget extends StatefulWidget {
@@ -24,6 +25,9 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
     final utils = Utils(context);
     final productModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    bool? isInWishlist =
+        wishlistProvider.getWishlistItems.containsKey(productModel.id);
     bool? isInCart = cartProvider.getCartItems.containsKey(productModel.id);
     return Padding(
       padding: const EdgeInsets.all(8),
@@ -88,7 +92,10 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                                       isInCart ? utils.blueColor : utils.color,
                                 ),
                               ),
-                              const HearthBTN()
+                              HearthBTN(
+                                productID: productModel.id,
+                                isInWishlist: isInWishlist,
+                              )
                             ],
                           ),
                         ],

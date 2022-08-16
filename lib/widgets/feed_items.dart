@@ -1,6 +1,7 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/providers/cart_provider.dart';
+import 'package:grocery/providers/wishlist_provider.dart';
 import 'package:grocery/widgets/price_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,10 @@ class _FeedsWidgetState extends State<FeedsWidget> {
   Widget build(BuildContext context) {
     final productModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
     bool? isInCart = cartProvider.getCartItems.containsKey(productModel.id);
+    bool? isInWishlist =
+        wishlistProvider.getWishlistItems.containsKey(productModel.id);
     if (_currentValue == 0) {
       setState(() {
         _currentValue++;
@@ -89,9 +93,12 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                       isTitle: true,
                     ),
                   ),
-                  const Flexible(
+                  Flexible(
                     flex: 1,
-                    child: HearthBTN(),
+                    child: HearthBTN(
+                      productID: productModel.id,
+                      isInWishlist: isInWishlist,
+                    ),
                   )
                 ],
               ),

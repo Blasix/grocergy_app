@@ -4,8 +4,10 @@ import 'package:grocery/widgets/heart_btn.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../models/products_model.dart';
 import '../providers/cart_provider.dart';
 import '../providers/product_provider.dart';
+import '../providers/wishlist_provider.dart';
 import '../services/utils.dart';
 import '../widgets/back_widget.dart';
 
@@ -36,6 +38,9 @@ class _ProductDetailsState extends State<ProductDetails> {
     final cartProvider = Provider.of<CartProvider>(context);
     final productID = ModalRoute.of(context)!.settings.arguments as String;
     final getCurrentProduct = productProvider.findProdById(productID);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    bool? isInWishlist =
+        wishlistProvider.getWishlistItems.containsKey(productID);
     bool? isInCart = cartProvider.getCartItems.containsKey(productID);
 
     double usedPrice = getCurrentProduct.isOnSale
@@ -89,7 +94,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                             isTitle: true,
                           ),
                         ),
-                        const HearthBTN(),
+                        HearthBTN(
+                          productID: productID,
+                          isInWishlist: isInWishlist,
+                        ),
                       ],
                     ),
                   ),

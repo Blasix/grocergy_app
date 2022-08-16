@@ -2,24 +2,41 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/inner_screens/product_details.dart';
+import 'package:grocery/models/wishlist_model.dart';
+import 'package:grocery/providers/product_provider.dart';
 import 'package:grocery/services/global_methods.dart';
 import 'package:grocery/services/utils.dart';
 import 'package:grocery/widgets/heart_btn.dart';
 import 'package:grocery/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
+import '../providers/cart_provider.dart';
+import '../providers/wishlist_provider.dart';
 
 class WishlistWidget extends StatelessWidget {
   const WishlistWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final wishlistModel = Provider.of<WishlistModel>(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    final productProvider = Provider.of<ProductsProvider>(context);
+    final getCurrentProduct =
+        productProvider.findProdById(wishlistModel.productID);
+    final cartProvider = Provider.of<CartProvider>(context);
+    bool? isInWishlist =
+        wishlistProvider.getWishlistItems.containsKey(wishlistModel.productID);
+    bool? isInCart =
+        cartProvider.getCartItems.containsKey(wishlistModel.productID);
     final Color color = Utils(context).color;
-    Size size = Utils(context).screenSize;
+    double usedPrice = getCurrentProduct.isOnSale
+        ? getCurrentProduct.salePrice
+        : getCurrentProduct.price;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          GlobalMethods.navigateTo(
-              ctx: context, routeName: ProductDetails.routeName);
+          Navigator.pushNamed(context, ProductDetails.routeName,
+              arguments: wishlistModel.productID);
         },
         child: Container(
           decoration: BoxDecoration(
@@ -34,44 +51,70 @@ class WishlistWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    FancyShimmerImage(
-                      imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-                      height: size.width * 0.23,
-                      width: size.width * 0.23,
-                      boxFit: BoxFit.fill,
+                    Flexible(
+                      child: FancyShimmerImage(
+                        height: 90,
+                        imageUrl: getCurrentProduct.imageUrl,
+                        boxFit: BoxFit.contain,
+                      ),
                     ),
                     Column(
                       children: [
                         Row(
                           children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                IconlyLight.bag2,
-                                color: color,
+                            GestureDetector(
+                              onTap: isInCart
+                                  ? null
+                                  : () {
+                                      cartProvider.addProductsToCart(
+                                        productID: wishlistModel.productID,
+                                        quantity: 1,
+                                      );
+                                    },
+                              child: Icon(
+                                isInCart ? IconlyBold.bag2 : IconlyLight.bag2,
+                                size: 22,
+                                color: isInCart
+                                    ? Utils(context).blueColor
+                                    : Utils(context).color,
                               ),
                             ),
-                            const HearthBTN(),
+                            HearthBTN(
+                              productID: wishlistModel.productID,
+                              isInWishlist: isInWishlist,
+                            ),
                           ],
                         ),
-                        TextWidget(
-                          text: 'Price',
-                          color: color,
-                          textSize: 20,
-                          isTitle: true,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 6),
+                          child: TextWidget(
+                            text: '€${usedPrice.toStringAsFixed(2)}',
+                            color: color,
+                            textSize: 20,
+                            isTitle: true,
+                          ),
                         ),
-                        TextWidget(text: '/kg', color: color, textSize: 16),
+                        TextWidget(
+                          text:
+                              '/${getCurrentProduct.isPiece ? 'Piece' : 'KG'}',
+                          color: color,
+                          textSize: 16,
+                        ),
                       ],
                     )
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 12.0),
-                  child: TextWidget(
-                    text: 'Product',
-                    color: color,
-                    textSize: 20,
-                    isTitle: true,
+                const SizedBox(
+                  height: 4,
+                ),
+                Center(
+                  child: FittedBox(
+                    child: TextWidget(
+                      text: getCurrentProduct.title,
+                      color: color,
+                      textSize: 20,
+                      isTitle: true,
+                    ),
                   ),
                 ),
               ],
