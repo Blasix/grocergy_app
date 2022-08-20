@@ -104,9 +104,7 @@ class WishlistScreen extends StatelessWidget {
               children: List.generate(wishlistItemList.length, (index) {
                 return ChangeNotifierProvider.value(
                   value: wishlistItemList[index],
-                  child: const WishlistWidget(
-                      // q: cartItemsList[index].quantity,
-                      ),
+                  child: const WishlistWidget(),
                 );
               }),
             ),

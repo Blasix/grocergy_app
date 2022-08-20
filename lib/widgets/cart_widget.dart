@@ -8,7 +8,6 @@ import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../inner_screens/product_details.dart';
-import '../models/products_model.dart';
 import '../providers/cart_provider.dart';
 import '../providers/wishlist_provider.dart';
 import '../services/utils.dart';

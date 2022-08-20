@@ -4,7 +4,6 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/inner_screens/product_details.dart';
 import 'package:grocery/models/wishlist_model.dart';
 import 'package:grocery/providers/product_provider.dart';
-import 'package:grocery/services/global_methods.dart';
 import 'package:grocery/services/utils.dart';
 import 'package:grocery/widgets/heart_btn.dart';
 import 'package:grocery/widgets/text_widget.dart';

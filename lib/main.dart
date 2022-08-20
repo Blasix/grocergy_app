@@ -4,6 +4,7 @@ import 'package:grocery/inner_screens/on_sale.dart';
 import 'package:grocery/inner_screens/product_details.dart';
 import 'package:grocery/providers/cart_provider.dart';
 import 'package:grocery/providers/product_provider.dart';
+import 'package:grocery/providers/viewed_provider.dart';
 import 'package:grocery/providers/wishlist_provider.dart';
 import 'package:grocery/screens/auth/forgot_pass.dart';
 import 'package:grocery/screens/auth/login.dart';
@@ -18,7 +19,16 @@ import 'package:provider/provider.dart';
 import 'constants/theme_data.dart';
 import 'inner_screens/cat_screen.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+// ...
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -40,6 +50,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     getCurrentAppTheme();
+
     super.initState();
   }
 
@@ -58,6 +69,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (_) => WishlistProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ViewedProvider(),
         ),
       ],
       child:
