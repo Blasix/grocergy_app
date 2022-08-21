@@ -11,6 +11,7 @@ import 'package:grocery/widgets/text_widget.dart';
 import '../../constants/consts.dart';
 import '../../widgets/auth_btn.dart';
 import '../../widgets/google_btn.dart';
+import '../btm_bar.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = "/LoginScreen";
@@ -263,7 +264,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 12,
                     ),
-                    AuthBTN(fct: () {}, btnText: 'Continue as a guest'),
+                    AuthBTN(
+                        fct: () {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const BottomBarScreen(),
+                            ),
+                          );
+                        },
+                        btnText: 'Continue as a guest'),
                     Row(
                       children: [
                         const Text(

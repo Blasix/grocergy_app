@@ -1,12 +1,15 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/inner_screens/product_details.dart';
 import 'package:grocery/models/viewed_model.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/firebase_consts.dart';
 import '../providers/cart_provider.dart';
 import '../providers/product_provider.dart';
+import '../services/global_methods.dart';
 import '../services/utils.dart';
 
 class ViewedWidget extends StatefulWidget {
@@ -56,6 +59,13 @@ class _ViewedWidgetState extends State<ViewedWidget> {
           child: IconButton(
             icon: isInCart ? const Icon(Icons.check) : const Icon(Icons.add),
             onPressed: () {
+              final User? user = authInstance.currentUser;
+              if (user == null) {
+                GlobalMethods.errorDialog(
+                    subtitle: 'No user found please login first',
+                    context: context);
+                return;
+              }
               isInCart
                   ? null
                   : cartProvider.addProductsToCart(

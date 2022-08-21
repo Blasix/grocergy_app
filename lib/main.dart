@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/inner_screens/feeds.dart';
 import 'package:grocery/inner_screens/on_sale.dart';
@@ -16,6 +17,7 @@ import 'package:grocery/user_screens/viewed.dart';
 import 'package:grocery/user_screens/wishlist.dart';
 import 'package:provider/provider.dart';
 
+import 'constants/firebase_consts.dart';
 import 'constants/theme_data.dart';
 import 'inner_screens/cat_screen.dart';
 
@@ -54,6 +56,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
+  final User? user = authInstance.currentUser;
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -80,7 +83,7 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: Styles.themeData(themeProvider.getDarkTheme, context),
-          home: const BottomBarScreen(),
+          home: user == null ? const LoginScreen() : const BottomBarScreen(),
           routes: {
             OnSaleScreen.routeName: (ctx) => const OnSaleScreen(),
             FeedsScreen.routeName: (ctx) => const FeedsScreen(),

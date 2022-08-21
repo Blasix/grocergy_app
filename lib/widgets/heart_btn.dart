@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery/constants/firebase_consts.dart';
 import 'package:grocery/providers/wishlist_provider.dart';
+import 'package:grocery/services/global_methods.dart';
 import 'package:provider/provider.dart';
 
 import '../services/utils.dart';
@@ -17,6 +20,12 @@ class HearthBTN extends StatelessWidget {
     final utils = Utils(context);
     return GestureDetector(
       onTap: () {
+        final User? user = authInstance.currentUser;
+        if (user == null) {
+          GlobalMethods.errorDialog(
+              subtitle: 'No user found please login first', context: context);
+          return;
+        }
         wishlistProvider.addProductToWishList(productID: productID);
       },
       child: Icon(

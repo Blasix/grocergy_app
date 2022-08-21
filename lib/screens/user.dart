@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery/constants/firebase_consts.dart';
+import 'package:grocery/screens/auth/login.dart';
 import 'package:grocery/user_screens/orders.dart';
 import 'package:grocery/services/global_methods.dart';
 import 'package:grocery/user_screens/viewed.dart';
@@ -27,6 +30,7 @@ class _UserScreenState extends State<UserScreen> {
     super.dispose();
   }
 
+  final User? user = authInstance.currentUser;
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -120,10 +124,16 @@ class _UserScreenState extends State<UserScreen> {
                   color: color,
                 ),
                 _listTiles(
-                  title: 'Logout',
-                  icon: IconlyLight.logout,
+                  title: user == null ? 'Login' : 'Logout',
+                  icon: user == null ? IconlyLight.login : IconlyLight.logout,
                   onPressed: () {
-                    _showLogoutDialog();
+                    user == null
+                        ? Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          )
+                        : _showLogoutDialog();
                   },
                   color: color,
                 ),
@@ -219,7 +229,23 @@ class _UserScreenState extends State<UserScreen> {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  try {
+                    await authInstance.signOut();
+                  } on FirebaseAuthException catch (error) {
+                    GlobalMethods.errorDialog(
+                        subtitle: '${error.message}', context: context);
+                  } catch (error) {
+                    GlobalMethods.errorDialog(
+                        subtitle: '$error', context: context);
+                  } finally {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
+                  }
+                },
                 child: Text(
                   'Sign out',
                   style: TextStyle(color: utils.redColor),

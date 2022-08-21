@@ -1,14 +1,17 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/widgets/heart_btn.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/firebase_consts.dart';
 import '../providers/cart_provider.dart';
 import '../providers/product_provider.dart';
 import '../providers/viewed_provider.dart';
 import '../providers/wishlist_provider.dart';
+import '../services/global_methods.dart';
 import '../services/utils.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -226,6 +229,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 onTap: isInCart
                                     ? null
                                     : () {
+                                        final User? user =
+                                            authInstance.currentUser;
+                                        if (user == null) {
+                                          GlobalMethods.errorDialog(
+                                              subtitle:
+                                                  'No user found please login first',
+                                              context: context);
+                                          return;
+                                        }
                                         cartProvider.addProductsToCart(
                                             productID: productID,
                                             quantity: _currentValue);
