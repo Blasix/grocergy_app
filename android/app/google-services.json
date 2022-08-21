@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "310419662151-n5558tairvsifjc8s7ud7pkibvedd1ig.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.blasix.grocery",
+            "certificate_hash": "fb99b51c90b7bd0eef89e60515acb11d4cdaa25b"
+          }
+        },
+        {
           "client_id": "310419662151-13qs92r123cc3f37bbant8q9re0l53rn.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "310419662151-13qs92r123cc3f37bbant8q9re0l53rn.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "310419662151-kbb3r621eo1kle6b38kqpilhihheb7d9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "net.blasix.grocery"
+              }
             }
           ]
         }
