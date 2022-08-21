@@ -59,6 +59,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         await authInstance.createUserWithEmailAndPassword(
             email: _emailTextController.text.toLowerCase().trim(),
             password: _passTextController.text.trim());
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const BottomBarScreen(),
+          ),
+        );
       } on FirebaseAuthException catch (error) {
         GlobalMethods.errorDialog(
             subtitle: '${error.message}', context: context);
@@ -74,11 +79,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         setState(() {
           _isLoading = false;
         });
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const BottomBarScreen(),
-          ),
-        );
       }
     }
   }

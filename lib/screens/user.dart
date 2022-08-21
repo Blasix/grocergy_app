@@ -232,18 +232,17 @@ class _UserScreenState extends State<UserScreen> {
                 onPressed: () async {
                   try {
                     await authInstance.signOut();
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
                   } on FirebaseAuthException catch (error) {
                     GlobalMethods.errorDialog(
                         subtitle: '${error.message}', context: context);
                   } catch (error) {
                     GlobalMethods.errorDialog(
                         subtitle: '$error', context: context);
-                  } finally {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      ),
-                    );
                   }
                 },
                 child: Text(
