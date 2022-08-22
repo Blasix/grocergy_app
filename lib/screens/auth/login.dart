@@ -268,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 3,
                       ),
-                      const GoogleBTN(),
+                      GoogleBTN(),
                       const SizedBox(
                         height: 10,
                       ),
