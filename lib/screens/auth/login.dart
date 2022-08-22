@@ -9,7 +9,6 @@ import 'package:grocery/services/global_methods.dart';
 import 'package:grocery/services/utils.dart';
 import 'package:grocery/widgets/apple_btn.dart';
 import 'package:grocery/widgets/text_widget.dart';
-import 'package:provider/provider.dart';
 
 import '../../constants/consts.dart';
 import '../../constants/firebase_consts.dart';
@@ -268,7 +267,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 3,
                       ),
-                      GoogleBTN(),
+                      const GoogleBTN(),
                       const SizedBox(
                         height: 10,
                       ),

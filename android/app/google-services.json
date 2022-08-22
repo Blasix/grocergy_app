@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "310419662151-n153ldnnoace99cpqeibasjvn7kkt6vu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.blasix.grocery",
+            "certificate_hash": "5ebf8c936ce5167c4b0c77a78acb82845a3dbad0"
+          }
+        },
+        {
           "client_id": "310419662151-n5558tairvsifjc8s7ud7pkibvedd1ig.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
