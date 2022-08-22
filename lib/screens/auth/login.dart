@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool _isLoading = false;
-  void _submitFormOnLogin() async {
+  void _submitFormOnLogin(context) async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (isValid) {
@@ -59,14 +60,23 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         );
       } on FirebaseAuthException catch (error) {
-        GlobalMethods.errorDialog(
-            subtitle: '${error.message}', context: context);
+        GlobalMethods.dialog(
+          context: context,
+          title: 'On snap!',
+          message: '${error.message}',
+          contentType: ContentType.failure,
+        );
         setState(() {
           _isLoading = false;
         });
         return;
       } catch (error) {
-        GlobalMethods.errorDialog(subtitle: '$error', context: context);
+        GlobalMethods.dialog(
+          context: context,
+          title: 'On snap!',
+          message: '$error',
+          contentType: ContentType.failure,
+        );
         setState(() {
           _isLoading = false;
         });
@@ -178,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             TextFormField(
                               onEditingComplete: () {
-                                _submitFormOnLogin();
+                                _submitFormOnLogin(context);
                               },
                               cursorColor: Utils(context).blueColor,
                               focusNode: _passFocusNode,
@@ -261,7 +271,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       AuthBTN(
                         btnText: 'Sign in',
                         fct: () {
-                          _submitFormOnLogin();
+                          _submitFormOnLogin(context);
                         },
                       ),
                       const SizedBox(

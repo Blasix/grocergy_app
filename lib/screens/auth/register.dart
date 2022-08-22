@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   bool _isLoading = false;
-  void _submitFormOnLogin() async {
+  void _submitFormOnLogin(context) async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (isValid) {
@@ -65,16 +66,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         );
       } on FirebaseAuthException catch (error) {
-        GlobalMethods.errorDialog(
-            subtitle: '${error.message}', context: context);
+        GlobalMethods.dialog(
+          context: context,
+          title: 'On snap!',
+          message: '${error.message}',
+          contentType: ContentType.failure,
+        );
         setState(() {
           _isLoading = false;
         });
+        return;
       } catch (error) {
-        GlobalMethods.errorDialog(subtitle: '$error', context: context);
+        GlobalMethods.dialog(
+          context: context,
+          title: 'On snap!',
+          message: '$error',
+          contentType: ContentType.failure,
+        );
         setState(() {
           _isLoading = false;
         });
+        return;
       } finally {
         setState(() {
           _isLoading = false;
@@ -292,7 +304,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               controller: _adressTextController,
                               keyboardType: TextInputType.streetAddress,
                               onEditingComplete: () {
-                                _submitFormOnLogin();
+                                _submitFormOnLogin(context);
                               },
                               validator: ValidationBuilder().build(),
                               style: const TextStyle(color: Colors.white),
@@ -354,7 +366,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       AuthBTN(
                         btnText: 'Sign up',
                         fct: () {
-                          _submitFormOnLogin();
+                          _submitFormOnLogin(context);
                         },
                       ),
                       Row(
