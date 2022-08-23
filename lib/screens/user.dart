@@ -1,8 +1,11 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/constants/firebase_consts.dart';
 import 'package:grocery/screens/auth/login.dart';
+import 'package:grocery/screens/loading_manager.dart';
 import 'package:grocery/user_screens/orders.dart';
 import 'package:grocery/services/global_methods.dart';
 import 'package:grocery/user_screens/viewed.dart';
@@ -31,135 +34,186 @@ class _UserScreenState extends State<UserScreen> {
     super.dispose();
   }
 
+  bool _isLoading = false;
   final User? user = authInstance.currentUser;
+  String? _email;
+  String? _name;
+  String? address;
+
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
+
+  Future<void> getUserData() async {
+    setState(() {
+      _isLoading = true;
+    });
+    if (user == null) {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+    try {
+      String uid = user!.uid;
+      final DocumentSnapshot userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      _email = userDoc.get('email');
+      _name = userDoc.get('name');
+      address = userDoc.get('address');
+      _addressTextController.text = userDoc.get('address');
+    } catch (error) {
+      setState(() {
+        _isLoading = false;
+      });
+      GlobalMethods.dialog(
+        context: context,
+        title: 'On snap!',
+        message: '$error',
+        contentType: ContentType.failure,
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
     final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: RichText(
-                    text: TextSpan(
-                      text: 'Hi, ',
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 27,
-                        fontWeight: FontWeight.bold,
+      body: LoadingManager(
+        isLoading: _isLoading,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Hi, ',
+                        style: TextStyle(
+                          color: color,
+                          fontSize: 27,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: _name ?? 'User',
+                          )
+                        ],
                       ),
-                      children: const <TextSpan>[
-                        TextSpan(
-                          text: 'Name',
-                        )
-                      ],
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: TextWidget(
-                    text: 'Email',
-                    color: color,
-                    textSize: 18,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: TextWidget(
+                      text: _email ?? '',
+                      color: color,
+                      textSize: 18,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Divider(
-                  thickness: 2,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                _listTiles(
-                  title: 'Address',
-                  subtitle: 'your address',
-                  icon: IconlyLight.profile,
-                  onPressed: () {
-                    _showAddressDialog();
-                  },
-                  color: color,
-                ),
-                _listTiles(
-                  title: 'Orders',
-                  icon: IconlyLight.bag,
-                  onPressed: () {
-                    GlobalMethods.navigateTo(
-                        ctx: context, routeName: OrdersScreen.routeName);
-                  },
-                  color: color,
-                ),
-                _listTiles(
-                  title: 'Wishlist',
-                  icon: IconlyLight.heart,
-                  onPressed: () {
-                    GlobalMethods.navigateTo(
-                        ctx: context, routeName: WishlistScreen.routeName);
-                  },
-                  color: color,
-                ),
-                _listTiles(
-                  title: 'Viewed',
-                  icon: IconlyLight.show,
-                  onPressed: () {
-                    GlobalMethods.navigateTo(
-                        ctx: context, routeName: ViewedScreen.routeName);
-                  },
-                  color: color,
-                ),
-                _listTiles(
-                  title: 'Forgot password',
-                  icon: IconlyLight.lock,
-                  onPressed: () {
-                    GlobalMethods.navigateTo(
-                        ctx: context, routeName: ForgotPassScreen.routeName);
-                  },
-                  color: color,
-                ),
-                _listTiles(
-                  title: user == null ? 'Login' : 'Logout',
-                  icon: user == null ? IconlyLight.login : IconlyLight.logout,
-                  onPressed: () {
-                    user == null
-                        ? Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
-                            ),
-                          )
-                        : _showLogoutDialog();
-                  },
-                  color: color,
-                ),
-                SwitchListTile(
-                  activeColor:
-                      themeState.getDarkTheme ? Colors.blue[900] : Colors.blue,
-                  title: TextWidget(
-                    text: themeState.getDarkTheme ? 'Dark mode' : 'Light mode',
-                    color: color,
-                    textSize: 22,
+                  const SizedBox(
+                    height: 20,
                   ),
-                  secondary: Icon(themeState.getDarkTheme
-                      ? Icons.dark_mode_outlined
-                      : Icons.light_mode_outlined),
-                  onChanged: (bool value) {
-                    setState(() {
-                      themeState.setDarkTheme = value;
-                    });
-                  },
-                  value: themeState.getDarkTheme,
-                ),
-              ],
+                  const Divider(
+                    thickness: 2,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  _listTiles(
+                    title: 'Address',
+                    subtitle: address,
+                    icon: IconlyLight.profile,
+                    onPressed: () {
+                      _showAddressDialog();
+                    },
+                    color: color,
+                  ),
+                  _listTiles(
+                    title: 'Orders',
+                    icon: IconlyLight.bag,
+                    onPressed: () {
+                      GlobalMethods.navigateTo(
+                          ctx: context, routeName: OrdersScreen.routeName);
+                    },
+                    color: color,
+                  ),
+                  _listTiles(
+                    title: 'Wishlist',
+                    icon: IconlyLight.heart,
+                    onPressed: () {
+                      GlobalMethods.navigateTo(
+                          ctx: context, routeName: WishlistScreen.routeName);
+                    },
+                    color: color,
+                  ),
+                  _listTiles(
+                    title: 'Viewed',
+                    icon: IconlyLight.show,
+                    onPressed: () {
+                      GlobalMethods.navigateTo(
+                          ctx: context, routeName: ViewedScreen.routeName);
+                    },
+                    color: color,
+                  ),
+                  _listTiles(
+                    title: 'Forgot password',
+                    icon: IconlyLight.lock,
+                    onPressed: () {
+                      GlobalMethods.navigateTo(
+                          ctx: context, routeName: ForgotPassScreen.routeName);
+                    },
+                    color: color,
+                  ),
+                  _listTiles(
+                    title: user == null ? 'Login' : 'Logout',
+                    icon: user == null ? IconlyLight.login : IconlyLight.logout,
+                    onPressed: () {
+                      user == null
+                          ? Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ),
+                            )
+                          : _showLogoutDialog();
+                    },
+                    color: color,
+                  ),
+                  SwitchListTile(
+                    activeColor: themeState.getDarkTheme
+                        ? Colors.blue[900]
+                        : Colors.blue,
+                    title: TextWidget(
+                      text:
+                          themeState.getDarkTheme ? 'Dark mode' : 'Light mode',
+                      color: color,
+                      textSize: 22,
+                    ),
+                    secondary: Icon(themeState.getDarkTheme
+                        ? Icons.dark_mode_outlined
+                        : Icons.light_mode_outlined),
+                    onChanged: (bool value) {
+                      setState(() {
+                        themeState.setDarkTheme = value;
+                      });
+                    },
+                    value: themeState.getDarkTheme,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -189,7 +243,38 @@ class _UserScreenState extends State<UserScreen> {
             ),
             actions: [
               TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  String uid = user!.uid;
+                  setState(() {
+                    _isLoading = true;
+                  });
+                  try {
+                    await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(uid)
+                        .update({
+                      'address': _addressTextController.text,
+                    });
+                    Navigator.pop(context);
+                    setState(() {
+                      address = _addressTextController.text;
+                    });
+                  } catch (error) {
+                    setState(() {
+                      _isLoading = false;
+                    });
+                    GlobalMethods.dialog(
+                      context: context,
+                      title: 'On snap!',
+                      message: '$error',
+                      contentType: ContentType.failure,
+                    );
+                  } finally {
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  }
+                },
                 child: Text(
                   'Update',
                   style: TextStyle(color: utils.blueColor),

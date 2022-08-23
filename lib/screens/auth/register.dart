@@ -1,5 +1,6 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
@@ -60,6 +61,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
         await authInstance.createUserWithEmailAndPassword(
             email: _emailTextController.text.toLowerCase().trim(),
             password: _passTextController.text.trim());
+        final User? user = authInstance.currentUser;
+        final uid = user!.uid;
+        await FirebaseFirestore.instance.collection('users').doc(uid).set({
+          'id': uid,
+          'name': _nameTextController.text,
+          'email': _emailTextController.text,
+          'address': _adressTextController.text,
+          'userWish': [],
+          'userCart': [],
+          'createdAt': Timestamp.now(),
+        });
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => const BottomBarScreen(),
@@ -313,7 +325,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     const Icon(Icons.home, color: Colors.grey),
                                 contentPadding:
                                     const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                                hintText: "Shipping adress",
+                                hintText: "Shipping address",
                                 hintStyle: const TextStyle(color: Colors.grey),
                                 enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
